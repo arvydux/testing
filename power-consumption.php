@@ -18,14 +18,25 @@ class PowerConsumption
     protected function getArrayOfBitsFromFile(string $path): array
     {
         $arrayOfBits = [];
-        $handle = fopen($path, "r");
 
-        while (!feof($handle)) {
-            $line = trim(fgets($handle));
-            $arrayOfBits[] = str_split($line);
+        try {
+            if (!file_exists($path)) {
+                throw new Exception("File not found: " . $path);
+            }
+
+            $handle = fopen($path, "r");
+            if (!$handle) {
+                throw new Exception('File open failed.');
+            }
+            while (!feof($handle)) {
+                $line = trim(fgets($handle));
+                $arrayOfBits[] = str_split($line);
+            }
+
+            fclose($handle);
+        } catch (Exception $e) {
+            echo "An error occurred: " . $e->getMessage();
         }
-
-        fclose($handle);
 
         return $arrayOfBits;
     }
