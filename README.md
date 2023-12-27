@@ -1,4 +1,4 @@
-# Binary Diagnostic
+# Binary Diagnostic - test
 
 Task implemented for Dotcon
 ## Questions and Improvements
